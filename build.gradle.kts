@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 plugins {
-    `java`
+    java
     id("org.springframework.boot") version "2.5.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
@@ -20,8 +20,18 @@ dependencies {
     implementation(platform("org.junit:junit-bom:5.7.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.vintage:junit-vintage-engine:5.7.2")
+    implementation("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 }
 
-tasks.test {
+tasks.withType<JavaCompile> {
+    options.isFork = true
+    options.forkOptions.executable = "/usr/lib/jvm/java-17-openjdk-amd64/bin/javac"
+}
+
+tasks.named<Test>("test") {
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
