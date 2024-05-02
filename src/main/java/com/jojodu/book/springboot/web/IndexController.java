@@ -17,7 +17,7 @@ public class IndexController {
 
     private final PostsService postsService;
     private final HttpSession httpSession;
-    SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//    SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {
